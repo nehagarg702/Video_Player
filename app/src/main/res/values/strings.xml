@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Video Player</string>
+    <string name="web_client_id">695367122850-g4ofv1uepchiod407lu4r8053gdbpo0m.apps.googleusercontent.com</string>
+    <string name="title_activity_main2">Video Player</string>
+    <string name="title_activity_exo_player">ExoPlayer</string>
+    <string name="title_activity_google_sign_in">GoogleSignIn</string>
+    <string name="title_activity_profile">Profile</string>
+</resources>
