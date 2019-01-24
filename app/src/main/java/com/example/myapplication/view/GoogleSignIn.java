@@ -159,6 +159,29 @@ public class GoogleSignIn extends AppCompatActivity implements GoogleApiClient.O
     }
 
     @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GoogleSignIn.this);
+        builder.setTitle("Vieo Player ");
+        builder.setIcon(R.mipmap.ic_launcher_round);
+        builder.setMessage("Do you want to Exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (authStateListener != null){

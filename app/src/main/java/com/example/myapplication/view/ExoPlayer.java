@@ -52,8 +52,8 @@ import java.util.ArrayList;
 
 public class ExoPlayer extends AppCompatActivity {
 
+    private boolean playerNeedsPrepare;
     PlayerView playerView;
-    PlayerControlView cv;
     SimpleExoPlayer player;
     String url,id,title,description;
     ImageView more;
@@ -95,7 +95,7 @@ public class ExoPlayer extends AppCompatActivity {
        more.setImageResource(R.drawable.expand);
         more.setVisibility(View.VISIBLE);
         if(description.length()>100) {
-            Description.setText(description.substring(0, 100) + "...");
+            Description.setText(description.substring(0, 92) + "...");
          }
         else
         {
@@ -105,13 +105,13 @@ public class ExoPlayer extends AppCompatActivity {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Description.getText().length()==103) {
+                if(Description.getText().length()==95) {
                     Description.setText(description);
                     more.setImageResource(R.drawable.collapse);
                 }
                 else
                 {
-                    Description.setText(description.substring(0,100)+"...");
+                    Description.setText(description.substring(0,92)+"...");
                     more.setImageResource(R.drawable.expand);
                      }
             }
@@ -122,6 +122,11 @@ public class ExoPlayer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onLoadingSwipeRefreshLayout();
+                if (playerNeedsPrepare) {
+                        initializePlayer();
+                        playerNeedsPrepare = false;
+                }
+                player.setPlayWhenReady(playWhenReady);
             }
         });
     }
@@ -162,6 +167,7 @@ public class ExoPlayer extends AppCompatActivity {
                layout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
                 scroll.setVisibility(View.VISIBLE);
+                playerNeedsPrepare = true;
                 text.setText("Please check your Internet Connection and Again load the Data by clicking on Retry" );
             }
         });
@@ -227,7 +233,7 @@ public class ExoPlayer extends AppCompatActivity {
 
         player = ExoPlayerFactory.newSimpleInstance(getApplicationContext(), trackSelector, loadControl);
         playerView.setPlayer(player);
-
+        playerNeedsPrepare = true;
         Uri uri = Uri.parse(url);
         MediaSource mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, false);

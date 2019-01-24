@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.view.GoogleSignIn;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -28,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Profile extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     Button logoutBtn;
-    TextView userName,userEmail,userId;
+    TextView userName,userEmail;
     ImageView profileImage;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
@@ -44,7 +43,6 @@ public class Profile extends AppCompatActivity implements GoogleApiClient.OnConn
         logoutBtn = findViewById(R.id.logoutBtn);
         userName = findViewById(R.id.name);
         userEmail = findViewById(R.id.email);
-        userId = findViewById(R.id.userId);
         profileImage = findViewById(R.id.profileImage);
 
         gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -97,9 +95,8 @@ public class Profile extends AppCompatActivity implements GoogleApiClient.OnConn
             GoogleSignInAccount account=result.getSignInAccount();
             userName.setText(account.getDisplayName());
             userEmail.setText(account.getEmail());
-            userId.setText(account.getId());
             try{
-                Glide.with(this).load(account.getPhotoUrl()).into(profileImage);
+                Glide.with(this).load(account.getPhotoUrl()).placeholder(R.drawable.ic_placeholder).into(profileImage);
             }catch (NullPointerException e){
                 Toast.makeText(getApplicationContext(),"image not found",Toast.LENGTH_LONG).show();
             }

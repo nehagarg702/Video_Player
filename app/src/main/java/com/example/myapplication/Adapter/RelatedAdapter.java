@@ -3,6 +3,7 @@ package com.example.myapplication.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,8 @@ public class RelatedAdapter extends RecyclerView.Adapter<RelatedAdapter.ViewHold
         String title = articles.get(position).getTitle();
         String id1=articles.get(position).getid();
         String desc=articles.get(position).getDescription();
-        if(desc.length()>80)
-            desc=desc.subSequence(0,80).toString()+"...";
+        if(desc.length()>100)
+            desc=desc.subSequence(0,100).toString()+"...";
         if(!(id1.equals(id))){
         holder.tv_card_main_title.setText(title);
         holder.description.setText(desc);
